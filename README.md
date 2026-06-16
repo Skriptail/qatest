@@ -1,5 +1,7 @@
 # Angular Todo App — тестовое задание
 
+![playwright tests](gifka.gif)
+
 ## подход
 
 использовал Page Object Pattern — все локаторы в классе `TodoPage`, тесты не знают о вёрстке напрямую.
