@@ -1,0 +1,83 @@
+<div class="task-container">
+    <div class="add-task">
+      <input 
+        type="text" 
+        placeholder="What needs to be done?" 
+        #newTaskInput
+        (keyup.enter)="addTask(newTaskInput.value); newTaskInput.value=''"
+        class="task-input"
+      >
+      <button 
+        (click)="addTask(newTaskInput.value); newTaskInput.value=''"
+        class="add-button"
+      >
+        Add
+      </button>
+    </div>
+  
+    <div class="filters">
+      <button 
+        [class.active]="filter === 'all'" 
+        (click)="filter = 'all'"
+      >
+        All
+      </button>
+      <button 
+        [class.active]="filter === 'active'" 
+        (click)="filter = 'active'"
+      >
+        Active
+      </button>
+      <button 
+        [class.active]="filter === 'completed'" 
+        (click)="filter = 'completed'"
+      >
+        Completed
+      </button>
+    </div>
+  
+    <div class="task-list">
+      <div *ngFor="let task of filteredTasks" class="task-item">
+        <div class="task-content">
+          <input 
+            type="checkbox" 
+            [checked]="task.completed" 
+            (change)="task.completed = !task.completed; updateTask(task)"
+            class="task-checkbox"
+          >
+  
+          <div *ngIf="currentTask?.id !== task.id; else editMode" class="task-view">
+            <span [class.completed]="task.completed" class="task-title">
+              {{ task.title }}
+            </span>
+            <div class="task-actions">
+              <button (click)="setCurrentTask(task)" class="edit-button">
+                Edit
+              </button>
+              <button (click)="deleteTask(task.id)" class="delete-button">
+                Delete
+              </button>
+            </div>
+          </div>
+  
+          <ng-template #editMode>
+            <div class="task-edit">
+              <input 
+                type="text" 
+                [value]="currentTask?.title"
+                #editInput
+                (keyup.enter)="currentTask!.title = editInput.value; updateTask(currentTask!); currentTask = null"
+                class="edit-input"
+              >
+              <button 
+                (click)="currentTask!.title = editInput.value; updateTask(currentTask!); currentTask = null"
+                class="save-button"
+              >
+                Save
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
