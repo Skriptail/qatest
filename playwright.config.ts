@@ -12,8 +12,6 @@ export default defineConfig({
     baseURL: 'http://localhost:4200',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    viewport: { width: 1920, height: 1080 },
-    launchOptions: { args: ['--start-maximized'] },
   },
 
   projects: [
